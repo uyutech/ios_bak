@@ -19,19 +19,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
-    
+
     self.view.backgroundColor = [UIColor whiteColor];
     
-//    UIView *view = [[UIView alloc] init];
     UIView *view = [[UIView alloc] initWithFrame:self.view.frame];
     
     view.backgroundColor = [UIColor colorWithHexString:@"#4c8daf"];
     
     [self.view addSubview:view];
     
-    
-//    
+     
 //    __weak __typeof(&*self) weakSelf = self;
 //    
 //    [view mas_makeConstraints:^(MASConstraintMaker *make) {

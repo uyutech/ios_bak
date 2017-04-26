@@ -123,13 +123,13 @@
 		26E66D4F1EAF93A4007FDDA1 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				269A1B251EB0EE84005186ED /* UIColor+Hex.h */,
-				269A1B261EB0EE84005186ED /* UIColor+Hex.m */,
-				26E66D5D1EAF93A4007FDDA1 /* LaunchScreen.storyboard */,
 				26E66D601EAF93A4007FDDA1 /* Info.plist */,
 				26E66D5B1EAF93A4007FDDA1 /* Assets.xcassets */,
 				26E66D581EAF93A4007FDDA1 /* Main.storyboard */,
+				26E66D5D1EAF93A4007FDDA1 /* LaunchScreen.storyboard */,
 				26E66D501EAF93A4007FDDA1 /* main.m */,
+				269A1B251EB0EE84005186ED /* UIColor+Hex.h */,
+				269A1B261EB0EE84005186ED /* UIColor+Hex.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
