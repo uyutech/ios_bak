@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		030DC499C3F2743EE3104A65 /* libPods-ZhuanquanIOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F1A90543DC6F665AB74EE3C /* libPods-ZhuanquanIOS.a */; };
 		269A1B271EB0EE84005186ED /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 269A1B261EB0EE84005186ED /* UIColor+Hex.m */; };
+		269A1B2D1EB22FF0005186ED /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 269A1B2C1EB22FF0005186ED /* LoginViewController.m */; };
 		26E66D511EAF93A4007FDDA1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 26E66D501EAF93A4007FDDA1 /* main.m */; };
 		26E66D541EAF93A4007FDDA1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 26E66D531EAF93A4007FDDA1 /* AppDelegate.m */; };
 		26E66D571EAF93A4007FDDA1 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26E66D561EAF93A4007FDDA1 /* ViewController.m */; };
@@ -40,6 +41,8 @@
 		2025B4533D66B9ADC148FC50 /* Pods-ZhuanquanIOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZhuanquanIOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZhuanquanIOS/Pods-ZhuanquanIOS.debug.xcconfig"; sourceTree = "<group>"; };
 		269A1B251EB0EE84005186ED /* UIColor+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Hex.h"; sourceTree = "<group>"; };
 		269A1B261EB0EE84005186ED /* UIColor+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Hex.m"; sourceTree = "<group>"; };
+		269A1B2B1EB22FF0005186ED /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		269A1B2C1EB22FF0005186ED /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		26E66D4C1EAF93A4007FDDA1 /* ZhuanquanIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZhuanquanIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		26E66D501EAF93A4007FDDA1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		26E66D521EAF93A4007FDDA1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -115,6 +118,8 @@
 				26E66D531EAF93A4007FDDA1 /* AppDelegate.m */,
 				26E66D551EAF93A4007FDDA1 /* ViewController.h */,
 				26E66D561EAF93A4007FDDA1 /* ViewController.m */,
+				269A1B2B1EB22FF0005186ED /* LoginViewController.h */,
+				269A1B2C1EB22FF0005186ED /* LoginViewController.m */,
 				26E66D4F1EAF93A4007FDDA1 /* Supporting Files */,
 			);
 			path = ZhuanquanIOS;
@@ -360,6 +365,7 @@
 				269A1B271EB0EE84005186ED /* UIColor+Hex.m in Sources */,
 				26E66D541EAF93A4007FDDA1 /* AppDelegate.m in Sources */,
 				26E66D511EAF93A4007FDDA1 /* main.m in Sources */,
+				269A1B2D1EB22FF0005186ED /* LoginViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
