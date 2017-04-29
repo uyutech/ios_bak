@@ -10,4 +10,7 @@
 
 @interface LoginView : UIView
 
+@property (nonatomic, weak) UIButton *loginTabButton;
+@property (nonatomic, weak) UIButton *regTabButton;
+
 @end

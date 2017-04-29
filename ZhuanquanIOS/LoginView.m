@@ -16,8 +16,7 @@
 @property (nonatomic, weak) UIView *loginBg;
 @property (nonatomic, weak) UIView *loginFrame;
 @property (nonatomic, weak) UIView *active;
-@property (nonatomic, weak) UILabel *loginLabel;
-@property (nonatomic, weak) UILabel *regLabel;
+@property (nonatomic, weak) UIButton *selectedButton;
 
 @end
 
@@ -69,51 +68,84 @@
     UIColor *colorDarkBlue = [UIColor colorWithHexString:@"#4c8daf"];
     UIColor *colorLightBlue = [UIColor colorWithHexString:@"#d8e4eb"];
     
-    UILabel *loginLabel = [[UILabel alloc] init];
-    loginLabel.text = @"登录";
-    loginLabel.font = [UIFont systemFontOfSize:16];
-    loginLabel.textAlignment = NSTextAlignmentCenter;
-    loginLabel.textColor = colorDarkBlue;
+    UIButton *loginTabButton = [[UIButton alloc] init];
+    [loginTabButton setTitle:@"登录" forState: UIControlStateNormal];
+    [loginTabButton setTitleColor:colorDarkBlue forState:UIControlStateSelected];
+    [loginTabButton setTitleColor:colorLightBlue forState:UIControlStateNormal];
+    loginTabButton.titleLabel.font = [UIFont systemFontOfSize:16];
+    loginTabButton.titleLabel.textAlignment = NSTextAlignmentCenter;
     
-    UILabel *regLabel = [[UILabel alloc] init];
-    regLabel.text = @"注册";
-    regLabel.font = [UIFont systemFontOfSize:16];
-    regLabel.textAlignment = NSTextAlignmentCenter;
-    regLabel.textColor = colorLightBlue;
+    UIButton *regTabButton = [[UIButton alloc] init];
+    [regTabButton setTitle:@"注册" forState: UIControlStateNormal];
+    [regTabButton setTitleColor:colorDarkBlue forState:UIControlStateSelected];
+    [regTabButton setTitleColor:colorLightBlue forState:UIControlStateNormal];
+    regTabButton.titleLabel.font = [UIFont systemFontOfSize:16];
+    regTabButton.titleLabel.textAlignment = NSTextAlignmentCenter;
     
     UIView *active = [[UIView alloc] init];
     active.backgroundColor = colorDarkBlue;
     
-    _loginLabel = loginLabel;
-    _regLabel = regLabel;
+    _loginTabButton = loginTabButton;
+    _regTabButton = regTabButton;
     _active = active;
 
-    [_loginFrame addSubview:loginLabel];
-    [_loginFrame addSubview:regLabel];
+    [_loginFrame addSubview:loginTabButton];
+    [_loginFrame addSubview:_regTabButton];
     [_loginFrame addSubview:active];
     
-    [loginLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [loginTabButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(_loginFrame).with.offset(0);
         make.left.equalTo(_loginFrame.mas_left).with.offset(0);
-        make.right.equalTo(regLabel.mas_left).with.offset(0);
-        make.width.equalTo(regLabel);
+        make.right.equalTo(_regTabButton.mas_left).with.offset(0);
+        make.width.equalTo(_regTabButton);
         make.height.mas_equalTo(46);
     }];
     
-    [regLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_regTabButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(_loginFrame).with.offset(0);
-        make.left.equalTo(loginLabel.mas_right).with.offset(0);
+        make.left.equalTo(loginTabButton.mas_right).with.offset(0);
         make.right.equalTo(_loginFrame.mas_right).with.offset(0);
-        make.width.equalTo(loginLabel);
+        make.width.equalTo(loginTabButton);
         make.height.mas_equalTo(46);
     }];
     
-    [active mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(loginLabel.mas_bottom).with.offset(-8);
-        make.centerX.mas_equalTo(loginLabel.mas_centerX);
+    [self setSelected:loginTabButton];
+    
+    [loginTabButton addTarget:self action:@selector(setSelected:) forControlEvents:UIControlEventTouchUpInside];
+    [regTabButton addTarget:self action:@selector(setSelected:) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)setSelected:(UIButton *)target {
+    
+    [target setSelected:YES];
+    [_selectedButton setSelected:NO];
+
+    [_active mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(target.mas_bottom).with.offset(-8);
+        make.centerX.mas_equalTo(target.mas_centerX);
         make.width.mas_equalTo(13);
         make.height.mas_equalTo(2);
     }];
+    
+    [_loginBg mas_updateConstraints:^(MASConstraintMaker *make) {
+        if (target == _regTabButton) {
+            make.top.offset(-10);
+        } else {
+            make.top.offset(0);
+        }
+    }];
+    
+    __weak __typeof(&*self) weakSelf = self;
+    
+    if (_selectedButton != nil) {
+        [UIView animateWithDuration:0.25 animations:^{
+            [weakSelf layoutIfNeeded];
+        } completion:^(BOOL finished) {
+            
+        }];
+    }
+    
+    _selectedButton = target;
 }
 
 @end
