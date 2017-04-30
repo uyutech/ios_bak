@@ -31,7 +31,8 @@
     if (self = [super initWithFrame:frame]) {
         [self buildLoginFrame];
         [self buildLoginTab];
-        [self buildLoginPanel];
+        [self setSelected:_loginTabButton];
+//        [self setSelected:_regTabButton];
     }
     
     return self;
@@ -59,19 +60,13 @@
         make.centerX.equalTo(weakSelf);
         make.size.mas_equalTo(CGSizeMake(150, 250));
     }];
-    
-    [loginFrame mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf).with.offset(110);
-        make.centerX.equalTo(weakSelf);
-        make.width.mas_equalTo(300);
-        make.height.mas_greaterThanOrEqualTo(233);
-    }];
 }
 
 - (void)buildLoginTab {
     
     UIButton *loginTabButton = [self createTabButton:@"登录"];
     UIButton *regTabButton = [self createTabButton:@"注册"];
+    
     UIView *active = [[UIView alloc] init];
     
     active.backgroundColor = COLOR_DARK_BLUE;
@@ -100,8 +95,6 @@
         make.height.mas_equalTo(46);
     }];
     
-    [self setSelected:loginTabButton];
-    
     [loginTabButton addTarget:self action:@selector(setSelected:) forControlEvents:UIControlEventTouchUpInside];
     [regTabButton addTarget:self action:@selector(setSelected:) forControlEvents:UIControlEventTouchUpInside];
 }
@@ -121,7 +114,7 @@
     forgetButton.titleLabel.font = [UIFont systemFontOfSize:13];
     forgetButton.titleLabel.textAlignment = NSTextAlignmentRight;
     
-    UIButton *loginSubmitButton = [self createSubmitButton:@"登 录"];
+    UIButton *loginSubmitButton = [self createButton:@"登 录"];
     
     _passport = passport;
     _password = password;
@@ -134,13 +127,6 @@
     [loginPanel addSubview:forgetButton];
     [loginPanel addSubview:loginSubmitButton];
     [self addSubview:loginPanel];
-    
-    [loginPanel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_loginFrame).with.offset(52);
-        make.left.equalTo(_loginFrame).with.offset(0);
-        make.right.equalTo(_loginFrame).with.offset(0);
-        make.height.mas_greaterThanOrEqualTo(_loginFrame.mas_height);
-    }];
     
     [passport mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(loginPanel).with.offset(0);
@@ -169,10 +155,121 @@
         make.right.equalTo(loginPanel).with.offset(-18);
         make.height.mas_equalTo(40);
     }];
+    
+    [loginPanel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_loginFrame).with.offset(52);
+        make.left.equalTo(_loginFrame).with.offset(0);
+        make.right.equalTo(_loginFrame).with.offset(0);
+        make.bottom.equalTo(loginSubmitButton.mas_bottom).with.offset(15);
+    }];
 }
 
 - (void)buildRegPanel {
     
+    UIView *regPanel = [[UIView alloc] init];
+    UIView *regAgreementLine = [[UIView alloc] init];
+    
+    UITextField *passport = [self createTextField:@"请输入手机号"];
+    UITextField *password = [self createTextField:@"请输入密码(至少6位)"];
+    UITextField *passcode = [self createTextField:@"请输入验证码"];
+    UIButton *regGetCodeButton = [self createButton:@"发送验证码" fontOfSize:13 borderRadius:4.0f];
+    UIButton *regSubmitButton = [self createButton:@"注 册"];
+    
+    UILabel *regAgreementLabel = [[UILabel alloc] init];
+    UIButton *regAgreementButton = [[UIButton alloc] init];
+    
+    password.secureTextEntry = YES;
+    
+    regAgreementLabel.text = @"绑定后意味着同意转圈的";
+    regAgreementLabel.textColor = [UIColor lightGrayColor];
+    regAgreementLabel.font = [UIFont systemFontOfSize:11];
+    
+    regAgreementButton.titleLabel.font = [UIFont systemFontOfSize:11];
+    [regAgreementButton setTitle:@"《用户协议》" forState:UIControlStateNormal];
+    [regAgreementButton setTitleColor:COLOR_DARK_BLUE forState:UIControlStateNormal];
+    
+    _regPassport = passport;
+    _regPassword = password;
+    _regPasscode = password;
+    _regGetCodeButton = regGetCodeButton;
+    _regSubmitButton = regSubmitButton;
+    _regAgreementButton = regAgreementButton;
+    _regPanel = regPanel;
+    
+    [regPanel addSubview:passport];
+    [regPanel addSubview:password];
+    [regPanel addSubview:passcode];
+    [regPanel addSubview:regGetCodeButton];
+    [regPanel addSubview:regSubmitButton];
+    [regPanel addSubview:regAgreementLine];
+    
+    [regAgreementLine addSubview:regAgreementLabel];
+    [regAgreementLine addSubview:regAgreementButton];
+    
+    [self addSubview:regPanel];
+    
+    [passport mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(regPanel).with.offset(0);
+        make.left.equalTo(regPanel).with.offset(18);
+        make.right.equalTo(regPanel).with.offset(-18);
+        make.height.mas_equalTo(40);
+    }];
+    
+    [password mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(passport.mas_bottom).with.offset(10);
+        make.left.equalTo(regPanel).with.offset(18);
+        make.right.equalTo(regPanel).with.offset(-18);
+        make.height.mas_equalTo(40);
+    }];
+    
+    [passcode mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(password.mas_bottom).with.offset(10);
+        make.left.equalTo(regPanel).with.offset(18);
+        make.right.equalTo(regGetCodeButton.mas_left).with.offset(-10);
+        make.height.mas_equalTo(40);
+    }];
+    
+    [regGetCodeButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(password.mas_bottom).with.offset(10);
+        make.left.equalTo(passcode.mas_right).with.offset(10);
+        make.right.equalTo(regPanel).with.offset(-18);
+        make.width.mas_equalTo(110);
+        make.height.mas_equalTo(40);
+    }];
+    
+    [regSubmitButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(passcode.mas_bottom).with.offset(15);
+        make.left.equalTo(regPanel).with.offset(18);
+        make.right.equalTo(regPanel).with.offset(-18);
+        make.height.mas_equalTo(40);
+    }];
+    
+    [regAgreementLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(regSubmitButton.mas_bottom).with.offset(10);
+        make.centerX.equalTo(regPanel.mas_centerX);
+        make.height.mas_equalTo(12);
+    }];
+    
+    [regAgreementLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(regAgreementLine).with.offset(0);
+        make.left.equalTo(regAgreementLine).with.offset(18);
+        make.right.equalTo(regAgreementButton.mas_left).with.offset(0);
+        make.height.mas_equalTo(12);
+    }];
+    
+    [regAgreementButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(regAgreementLine).with.offset(0);
+        make.left.equalTo(regAgreementLabel.mas_right).with.offset(0);
+        make.right.equalTo(regAgreementLine).with.offset(-18);
+        make.height.mas_equalTo(12);
+    }];
+    
+    [regPanel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_loginFrame).with.offset(52);
+        make.left.equalTo(_loginFrame).with.offset(0);
+        make.right.equalTo(_loginFrame).with.offset(0);
+        make.bottom.equalTo(regAgreementLine.mas_bottom).with.offset(15);
+    }];
 }
 
 - (void)buildResetPasswordPanel {
@@ -205,20 +302,65 @@
     return tabButton;
 }
 
-- (UIButton *)createSubmitButton:(NSString *)title {
+- (UIButton *)createButton:(NSString *)title fontOfSize:(CGFloat)fontsize borderRadius:(CGFloat)radius {
     
     UIButton *button = [[UIButton alloc] init];
     button.backgroundColor = COLOR_DARK_BLUE;
-    button.layer.cornerRadius = 20.0f;
+    button.layer.cornerRadius = radius;
+    button.titleLabel.font = [UIFont systemFontOfSize:fontsize];
     [button setTitle:title forState:UIControlStateNormal];
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 
     return button;
 }
 
+- (UIButton *)createButton:(NSString *)title {
+    
+    UIButton *button = [self createButton:title fontOfSize:15 borderRadius:20.0f];
+    
+    return button;
+}
+
 /// User Actions
 
 - (void)setSelected:(UIButton *)target {
+    
+    __weak __typeof(&*self) weakSelf = self;
+    
+    if (target == _loginTabButton) {
+        if (_regPanel != nil) {
+            _regPanel.hidden = YES;
+        }
+        if (_loginPanel == nil) {
+            [self buildLoginPanel];
+        } else {
+            _loginPanel.hidden = NO;
+        }
+    }
+    
+    if (target == _regTabButton) {
+        if (_loginPanel != nil) {
+            _loginPanel.hidden = YES;
+        }
+        if (_regPanel == nil) {
+            [self buildRegPanel];
+        } else {
+            _regPanel.hidden = NO;
+        }
+    }
+    
+    [_loginFrame mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(weakSelf).with.offset(110);
+        make.centerX.equalTo(weakSelf);
+        make.width.mas_equalTo(300);
+        if (target == _regTabButton) {
+            make.bottom.equalTo(_regPanel.mas_bottom).with.offset(0);
+        } else {
+            make.bottom.equalTo(_loginPanel.mas_bottom).with.offset(0);
+        }
+    }];
+    
+    [self layoutIfNeeded];
     
     [_active mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(target.mas_bottom).with.offset(-8);
@@ -229,20 +371,16 @@
     
     [_loginBg mas_updateConstraints:^(MASConstraintMaker *make) {
         if (target == _regTabButton) {
-            make.top.offset(-10);
+            make.top.offset(-15);
         } else {
             make.top.offset(0);
         }
     }];
     
-    __weak __typeof(&*self) weakSelf = self;
-    
     if (_selectedButton != nil) {
         [_selectedButton setSelected:NO];
         [UIView animateWithDuration:0.25 animations:^{
             [weakSelf layoutIfNeeded];
-        } completion:^(BOOL finished) {
-            
         }];
     }
     

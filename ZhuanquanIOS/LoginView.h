@@ -22,8 +22,13 @@
 @property (nonatomic, weak) UIButton *loginSubmitButton;
 @property (nonatomic, weak) UIButton *resetSubmitButton;
 @property (nonatomic, weak) UIButton *regSubmitButton;
+@property (nonatomic, weak) UIButton *regGetCodeButton;
+@property (nonatomic, weak) UIButton *regAgreementButton;
 
 @property (nonatomic, weak) UITextField *passport;
 @property (nonatomic, weak) UITextField *password;
+@property (nonatomic, weak) UITextField *regPassport;
+@property (nonatomic, weak) UITextField *regPassword;
+@property (nonatomic, weak) UITextField *regPasscode;
 
 @end
