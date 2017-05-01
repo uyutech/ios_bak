@@ -13,7 +13,8 @@
 
 @interface LoginView ()
 
-@property (nonatomic, weak) UIView *loginBg;
+@property (nonatomic, weak) UIView *mainBg;
+@property (nonatomic, weak) UIView *mainFrame;
 @property (nonatomic, weak) UIView *loginFrame;
 @property (nonatomic, weak) UIView *active;
 @property (nonatomic, weak) UIButton *selectedButton;
@@ -29,36 +30,43 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     
     if (self = [super initWithFrame:frame]) {
-        [self buildLoginFrame];
+        [self buildMainFrame];
         [self buildLoginTab];
         [self setSelected:_loginTabButton];
-//        [self setSelected:_regTabButton];
     }
     
     return self;
 }
 
-- (void)buildLoginFrame {
-
-    UIImageView *loginBg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"portalBg"]];
-    loginBg.contentMode = UIViewContentModeScaleAspectFit;
+- (void)buildMainFrame {
+    
+    UIImageView *mainBg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"portalBg"]];
+    mainBg.contentMode = UIViewContentModeScaleAspectFit;
+    
+    UIView *mainFrame = [[UIView alloc] init];
+    mainFrame.backgroundColor = [UIColor whiteColor];
+    mainFrame.layer.cornerRadius = 5.0f;
     
     UIView *loginFrame = [[UIView alloc] init];
-    loginFrame.backgroundColor = [UIColor whiteColor];
-    loginFrame.layer.cornerRadius = 5.0f;
     
-    _loginBg = loginBg;
+    _mainBg = mainBg;
+    _mainFrame = mainFrame;
     _loginFrame = loginFrame;
     
-    [self addSubview:loginBg];
-    [self addSubview:loginFrame];
+    [self addSubview:mainBg];
+    [self addSubview:mainFrame];
+    [mainFrame addSubview:loginFrame];
     
     __weak __typeof(&*self) weakSelf = self;
     
-    [loginBg mas_makeConstraints:^(MASConstraintMaker *make) {
+    [mainBg mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf).with.offset(0);
         make.centerX.equalTo(weakSelf);
         make.size.mas_equalTo(CGSizeMake(150, 250));
+    }];
+    
+    [mainFrame mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(loginFrame).with.offset(0);
     }];
 }
 
@@ -76,18 +84,18 @@
     _active = active;
 
     [_loginFrame addSubview:loginTabButton];
-    [_loginFrame addSubview:_regTabButton];
+    [_loginFrame addSubview:regTabButton];
     [_loginFrame addSubview:active];
     
     [loginTabButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(_loginFrame).with.offset(0);
         make.left.equalTo(_loginFrame.mas_left).with.offset(0);
-        make.right.equalTo(_regTabButton.mas_left).with.offset(0);
-        make.width.equalTo(_regTabButton);
+        make.right.equalTo(regTabButton.mas_left).with.offset(0);
+        make.width.equalTo(regTabButton);
         make.height.mas_equalTo(46);
     }];
     
-    [_regTabButton mas_makeConstraints:^(MASConstraintMaker *make) {
+    [regTabButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(_loginFrame).with.offset(0);
         make.left.equalTo(loginTabButton.mas_right).with.offset(0);
         make.right.equalTo(_loginFrame.mas_right).with.offset(0);
@@ -113,12 +121,13 @@
     
     [password setRightView:togglePassword];
     [password setRightViewMode:UITextFieldViewModeAlways];
-    password.secureTextEntry = YES;
+    [password setSecureTextEntry:YES];
     [passport setKeyboardType:UIKeyboardTypePhonePad];
     
     UIButton *forgetButton = [[UIButton alloc] init];
     [forgetButton setTitle:@"忘记密码" forState:UIControlStateNormal];
     [forgetButton setTitleColor:COLOR_DARK_BLUE forState:UIControlStateNormal];
+    [forgetButton addTarget:self action:@selector(showResetPanel:) forControlEvents:UIControlEventTouchUpInside];
     forgetButton.titleLabel.font = [UIFont systemFontOfSize:13];
     forgetButton.titleLabel.textAlignment = NSTextAlignmentRight;
     
@@ -193,7 +202,7 @@
     
     [password setRightView:togglePassword];
     [password setRightViewMode:UITextFieldViewModeAlways];
-    password.secureTextEntry = YES;
+    [password setSecureTextEntry:YES];
     [passport setKeyboardType:UIKeyboardTypePhonePad];
     [passcode setKeyboardType:UIKeyboardTypeNumberPad];
     
@@ -289,7 +298,111 @@
     }];
 }
 
-- (void)buildResetPasswordPanel {
+- (void)buildResetPanel {
+    
+    __weak __typeof(&*self) weakSelf = self;
+    
+    UIView *resetPanel = [[UIView alloc] init];
+    resetPanel.backgroundColor = [UIColor whiteColor];
+    resetPanel.layer.cornerRadius = 5.0f;
+    
+    UILabel *title = [[UILabel alloc] init];
+    [title setText:@"重置密码"];
+    [title setFont:[UIFont systemFontOfSize:16]];
+    [title setTextColor:COLOR_DARK_BLUE];
+    
+    UIButton *backButton = [[UIButton alloc] init];
+    [backButton setImage:[UIImage imageNamed:@"backIcon"] forState:UIControlStateNormal];
+    [backButton addTarget:self action:@selector(hideResetPanel:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UITextField *passport = [self createTextField:@"请输入手机号" imageNamed:@"passportIcon"];
+    UITextField *password = [self createTextField:@"请输入新密码(至少6位)" imageNamed:@"passwordIcon"];
+    UITextField *passcode = [self createTextField:@"请输入验证码" imageNamed:@"mobileIcon"];
+    UIButton *resetGetCodeButton = [self createButton:@"发送验证码" fontOfSize:13 borderRadius:4.0f];
+    UIButton *resetSubmitButton = [self createButton:@"确 认"];
+    
+    UIButton *togglePassword = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    [togglePassword setImage:[UIImage imageNamed:@"eyeOn"] forState:UIControlStateNormal];
+    [togglePassword setImage:[UIImage imageNamed:@"eyeOff"] forState:UIControlStateSelected];
+    [togglePassword addTarget:self action:@selector(toggleDisplayPassword:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [password setRightView:togglePassword];
+    [password setRightViewMode:UITextFieldViewModeAlways];
+    [password setSecureTextEntry:YES];
+    [passport setKeyboardType:UIKeyboardTypePhonePad];
+    [passcode setKeyboardType:UIKeyboardTypeNumberPad];
+    
+    _resetPassport = passport;
+    _resetPassword = password;
+    _resetPasscode = password;
+    _resetGetCodeButton = resetGetCodeButton;
+    _resetSubmitButton = resetSubmitButton;
+    _resetPanel = resetPanel;
+    
+    [resetPanel addSubview:title];
+    [resetPanel addSubview:backButton];
+    [resetPanel addSubview:passport];
+    [resetPanel addSubview:password];
+    [resetPanel addSubview:passcode];
+    [resetPanel addSubview:resetGetCodeButton];
+    [resetPanel addSubview:resetSubmitButton];
+    
+    [self addSubview:resetPanel];
+    
+    [title mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(resetPanel.mas_top).with.offset(0);
+        make.centerX.equalTo(resetPanel.mas_centerX);
+        make.height.mas_equalTo(40);
+    }];
+    
+    [backButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(resetPanel.mas_top).with.offset(0);
+        make.left.equalTo(resetPanel.mas_left).with.offset(2);
+        make.size.mas_equalTo(CGSizeMake(40, 40));
+    }];
+    
+    [passport mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(resetPanel).with.offset(40);
+        make.left.equalTo(resetPanel).with.offset(18);
+        make.right.equalTo(resetPanel).with.offset(-18);
+        make.height.mas_equalTo(40);
+    }];
+    
+    [password mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(passport.mas_bottom).with.offset(10);
+        make.left.equalTo(resetPanel).with.offset(18);
+        make.right.equalTo(resetPanel).with.offset(-18);
+        make.height.mas_equalTo(40);
+    }];
+    
+    [passcode mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(password.mas_bottom).with.offset(10);
+        make.left.equalTo(resetPanel).with.offset(18);
+        make.right.equalTo(resetGetCodeButton.mas_left).with.offset(-10);
+        make.height.mas_equalTo(40);
+    }];
+    
+    [resetGetCodeButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(password.mas_bottom).with.offset(10);
+        make.left.equalTo(passcode.mas_right).with.offset(10);
+        make.right.equalTo(resetPanel).with.offset(-18);
+        make.width.mas_equalTo(110);
+        make.height.mas_equalTo(40);
+    }];
+    
+    [resetSubmitButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(passcode.mas_bottom).with.offset(15);
+        make.left.equalTo(resetPanel).with.offset(18);
+        make.right.equalTo(resetPanel).with.offset(-18);
+        make.height.mas_equalTo(40);
+    }];
+    
+    [resetPanel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(weakSelf).with.offset(110);
+        make.centerX.equalTo(weakSelf);
+        make.width.mas_equalTo(300);
+        make.bottom.equalTo(resetSubmitButton.mas_bottom).with.offset(15);
+    }];
     
 }
 
@@ -393,7 +506,7 @@
         make.height.mas_equalTo(2);
     }];
     
-    [_loginBg mas_updateConstraints:^(MASConstraintMaker *make) {
+    [_mainBg mas_updateConstraints:^(MASConstraintMaker *make) {
         if (target == _regTabButton) {
             make.top.offset(-15);
         } else {
@@ -423,9 +536,27 @@
         password = _regPassword;
     }
     
+    if (_resetPanel && _resetPanel.hidden == NO) {
+        password = _resetPassword;
+    }
+    
     state = password.secureTextEntry;
     [password setSecureTextEntry:!state];
     [target setSelected: state];
+}
+
+- (void)showResetPanel:(UIButton *)target {
+    if (_resetPanel == nil) {
+        [self buildResetPanel];
+    } else {
+        _resetPanel.hidden = NO;
+    }
+}
+
+- (void)hideResetPanel:(UIButton *)target {
+    if (_resetPanel != nil) {
+        _resetPanel.hidden = YES;
+    }
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
