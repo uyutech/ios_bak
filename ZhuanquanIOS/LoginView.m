@@ -103,10 +103,18 @@
     
     UIView *loginPanel = [[UIView alloc] init];
     
-    UITextField *passport = [self createTextField:@"请输入手机号"];
-    UITextField *password = [self createTextField:@"请输入密码"];
+    UITextField *passport = [self createTextField:@"请输入手机号" imageNamed:@"passportIcon"];
+    UITextField *password = [self createTextField:@"请输入密码" imageNamed:@"passwordIcon"];
     
+    UIButton *togglePassword = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    [togglePassword setImage:[UIImage imageNamed:@"eyeOn"] forState:UIControlStateNormal];
+    [togglePassword setImage:[UIImage imageNamed:@"eyeOff"] forState:UIControlStateSelected];
+    [togglePassword addTarget:self action:@selector(toggleDisplayPassword:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [password setRightView:togglePassword];
+    [password setRightViewMode:UITextFieldViewModeAlways];
     password.secureTextEntry = YES;
+    [passport setKeyboardType:UIKeyboardTypePhonePad];
     
     UIButton *forgetButton = [[UIButton alloc] init];
     [forgetButton setTitle:@"忘记密码" forState:UIControlStateNormal];
@@ -169,16 +177,25 @@
     UIView *regPanel = [[UIView alloc] init];
     UIView *regAgreementLine = [[UIView alloc] init];
     
-    UITextField *passport = [self createTextField:@"请输入手机号"];
-    UITextField *password = [self createTextField:@"请输入密码(至少6位)"];
-    UITextField *passcode = [self createTextField:@"请输入验证码"];
+    UITextField *passport = [self createTextField:@"请输入手机号" imageNamed:@"passportIcon"];
+    UITextField *password = [self createTextField:@"请输入密码(至少6位)" imageNamed:@"passwordIcon"];
+    UITextField *passcode = [self createTextField:@"请输入验证码" imageNamed:@"mobileIcon"];
     UIButton *regGetCodeButton = [self createButton:@"发送验证码" fontOfSize:13 borderRadius:4.0f];
     UIButton *regSubmitButton = [self createButton:@"注 册"];
     
     UILabel *regAgreementLabel = [[UILabel alloc] init];
     UIButton *regAgreementButton = [[UIButton alloc] init];
     
+    UIButton *togglePassword = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    [togglePassword setImage:[UIImage imageNamed:@"eyeOn"] forState:UIControlStateNormal];
+    [togglePassword setImage:[UIImage imageNamed:@"eyeOff"] forState:UIControlStateSelected];
+    [togglePassword addTarget:self action:@selector(toggleDisplayPassword:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [password setRightView:togglePassword];
+    [password setRightViewMode:UITextFieldViewModeAlways];
     password.secureTextEntry = YES;
+    [passport setKeyboardType:UIKeyboardTypePhonePad];
+    [passcode setKeyboardType:UIKeyboardTypeNumberPad];
     
     regAgreementLabel.text = @"绑定后意味着同意转圈的";
     regAgreementLabel.textColor = [UIColor lightGrayColor];
@@ -276,7 +293,7 @@
     
 }
 
-- (UITextField *)createTextField:(NSString *)withPlaceholder {
+- (UITextField *)createTextField:(NSString *)withPlaceholder imageNamed:(NSString *)name {
     
     UITextField *textField = [[UITextField alloc] init];
     textField.backgroundColor = COLOR_INPUT_BG;
@@ -286,6 +303,12 @@
     [textField setValue:COLOR_LIGHT_BLUE forKeyPath:@"_placeholderLabel.textColor"];
     [textField setFont:[UIFont systemFontOfSize:14]];
     [textField setClearButtonMode:UITextFieldViewModeWhileEditing];
+    
+    UIImageView *image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:name]];
+    image.frame = CGRectMake(0, 0, 40, 40);
+    image.contentMode = UIViewContentModeCenter;
+    [textField setLeftView:image];
+    [textField setLeftViewMode:UITextFieldViewModeAlways];
     
     return textField;
 }
@@ -360,6 +383,7 @@
         }
     }];
     
+    [self endEditing:YES];
     [self layoutIfNeeded];
     
     [_active mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -383,9 +407,29 @@
             [weakSelf layoutIfNeeded];
         }];
     }
-    
+
     [target setSelected:YES];
     _selectedButton = target;
+}
+
+- (void)toggleDisplayPassword:(UIButton *)target {
+    
+    BOOL state = NO;
+    UITextField *password = nil;
+    
+    if (_loginPanel.hidden == NO) {
+        password = _password;
+    } else {
+        password = _regPassword;
+    }
+    
+    state = password.secureTextEntry;
+    [password setSecureTextEntry:!state];
+    [target setSelected: state];
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self endEditing:YES];
 }
 
 @end
