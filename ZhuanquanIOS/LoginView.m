@@ -13,7 +13,8 @@
 
 @interface LoginView ()
 
-@property (nonatomic, weak) UIView *loginBg;
+@property (nonatomic, weak) UIView *mainBg;
+@property (nonatomic, weak) UIView *mainFrame;
 @property (nonatomic, weak) UIView *loginFrame;
 @property (nonatomic, weak) UIView *active;
 @property (nonatomic, weak) UIButton *selectedButton;
@@ -29,37 +30,43 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     
     if (self = [super initWithFrame:frame]) {
-//        [self buildLoginFrame];
-//        [self buildLoginTab];
-//        [self setSelected:_loginTabButton];
-//        [self setSelected:_regTabButton];
-        [self buildResetPasswordPanel];
+        [self buildMainFrame];
+        [self buildLoginTab];
+        [self setSelected:_loginTabButton];
     }
     
     return self;
 }
 
-- (void)buildLoginFrame {
-
-    UIImageView *loginBg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"portalBg"]];
-    loginBg.contentMode = UIViewContentModeScaleAspectFit;
+- (void)buildMainFrame {
+    
+    UIImageView *mainBg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"portalBg"]];
+    mainBg.contentMode = UIViewContentModeScaleAspectFit;
+    
+    UIView *mainFrame = [[UIView alloc] init];
+    mainFrame.backgroundColor = [UIColor whiteColor];
+    mainFrame.layer.cornerRadius = 5.0f;
     
     UIView *loginFrame = [[UIView alloc] init];
-    loginFrame.backgroundColor = [UIColor whiteColor];
-    loginFrame.layer.cornerRadius = 5.0f;
     
-    _loginBg = loginBg;
+    _mainBg = mainBg;
+    _mainFrame = mainFrame;
     _loginFrame = loginFrame;
     
-    [self addSubview:loginBg];
-    [self addSubview:loginFrame];
+    [self addSubview:mainBg];
+    [self addSubview:mainFrame];
+    [mainFrame addSubview:loginFrame];
     
     __weak __typeof(&*self) weakSelf = self;
     
-    [loginBg mas_makeConstraints:^(MASConstraintMaker *make) {
+    [mainBg mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf).with.offset(0);
         make.centerX.equalTo(weakSelf);
         make.size.mas_equalTo(CGSizeMake(150, 250));
+    }];
+    
+    [mainFrame mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(loginFrame).with.offset(0);
     }];
 }
 
@@ -120,6 +127,7 @@
     UIButton *forgetButton = [[UIButton alloc] init];
     [forgetButton setTitle:@"忘记密码" forState:UIControlStateNormal];
     [forgetButton setTitleColor:COLOR_DARK_BLUE forState:UIControlStateNormal];
+    [forgetButton addTarget:self action:@selector(showResetPanel:) forControlEvents:UIControlEventTouchUpInside];
     forgetButton.titleLabel.font = [UIFont systemFontOfSize:13];
     forgetButton.titleLabel.textAlignment = NSTextAlignmentRight;
     
@@ -290,7 +298,7 @@
     }];
 }
 
-- (void)buildResetPasswordPanel {
+- (void)buildResetPanel {
     
     __weak __typeof(&*self) weakSelf = self;
     
@@ -305,6 +313,7 @@
     
     UIButton *backButton = [[UIButton alloc] init];
     [backButton setImage:[UIImage imageNamed:@"backIcon"] forState:UIControlStateNormal];
+    [backButton addTarget:self action:@selector(hideResetPanel:) forControlEvents:UIControlEventTouchUpInside];
     
     UITextField *passport = [self createTextField:@"请输入手机号" imageNamed:@"passportIcon"];
     UITextField *password = [self createTextField:@"请输入新密码(至少6位)" imageNamed:@"passwordIcon"];
@@ -497,7 +506,7 @@
         make.height.mas_equalTo(2);
     }];
     
-    [_loginBg mas_updateConstraints:^(MASConstraintMaker *make) {
+    [_mainBg mas_updateConstraints:^(MASConstraintMaker *make) {
         if (target == _regTabButton) {
             make.top.offset(-15);
         } else {
@@ -527,9 +536,27 @@
         password = _regPassword;
     }
     
+    if (_resetPanel && _resetPanel.hidden == NO) {
+        password = _resetPassword;
+    }
+    
     state = password.secureTextEntry;
     [password setSecureTextEntry:!state];
     [target setSelected: state];
+}
+
+- (void)showResetPanel:(UIButton *)target {
+    if (_resetPanel == nil) {
+        [self buildResetPanel];
+    } else {
+        _resetPanel.hidden = NO;
+    }
+}
+
+- (void)hideResetPanel:(UIButton *)target {
+    if (_resetPanel != nil) {
+        _resetPanel.hidden = YES;
+    }
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
