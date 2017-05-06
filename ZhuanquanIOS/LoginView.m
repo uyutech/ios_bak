@@ -25,6 +25,9 @@
 
 @end
 
+@class AppDelegate;
+@class UIApplication;
+
 @implementation LoginView
 
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -49,12 +52,22 @@
     
     UIView *loginFrame = [[UIView alloc] init];
     
+    UIButton *closeButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    [closeButton setTitle:@"关闭" forState:UIControlStateNormal];
+    [closeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    closeButton.titleLabel.font = [UIFont systemFontOfSize:15];
+    
+    UIButton *backButton = [[UIButton alloc] init];
+    [backButton setImage:[UIImage imageNamed:@"backIcon"] forState:UIControlStateNormal];
+    
     _mainBg = mainBg;
     _mainFrame = mainFrame;
     _loginFrame = loginFrame;
+    _closeButton = closeButton;
     
     [self addSubview:mainBg];
     [self addSubview:mainFrame];
+    [self addSubview:closeButton];
     [mainFrame addSubview:loginFrame];
     
     __weak __typeof(&*self) weakSelf = self;
@@ -67,6 +80,12 @@
     
     [mainFrame mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(loginFrame).with.offset(0);
+    }];
+    
+    [closeButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(weakSelf).with.offset(10);
+        make.left.equalTo(weakSelf).with.offset(10);
+        make.size.mas_equalTo(CGSizeMake(40, 20));
     }];
 }
 

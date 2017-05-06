@@ -6,14 +6,15 @@
 //  Copyright © 2017年 ydream. All rights reserved.
 //
 
-#import "Masonry.h"
-#import "UIColor+Hex.h"
 #import "ViewController.h"
 #import "LoginViewController.h"
+#import "WebViewController.h"
 
 @interface ViewController ()
 
 @end
+
+@class AppDelegate;
 
 @implementation ViewController
 
@@ -22,21 +23,23 @@
 
     self.view.backgroundColor = [UIColor whiteColor];
 
-    UIView *view = [[UIView alloc] initWithFrame:self.view.frame];
+    __weak __typeof(&*self) weakSelf = self;
+    self.navigationController.interactivePopGestureRecognizer.delegate = weakSelf;
     
-    view.backgroundColor = [UIColor colorWithHexString:@"#4c8daf"];
+    UIButton *button = [[UIButton alloc] init];
+    [button setTitle:@"打开登录面板" forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(login:) forControlEvents:UIControlEventTouchUpInside];
+    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [button setFrame:CGRectMake(20, 60, 200, 20)];
     
-    [self.view addSubview:view];
-
-    LoginViewController *loginVC = [[LoginViewController alloc] init];
-
-    [self.view addSubview:loginVC.view];
-
-    [loginVC.view mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(view).with.offset(20);
-        make.size.mas_equalTo(loginVC.view.frame.size);
-        make.centerX.equalTo(view);
-    }];
+    UIButton *button2 = [[UIButton alloc] init];
+    [button2 setTitle:@"打开页面" forState:UIControlStateNormal];
+    [button2 addTarget:self action:@selector(openPage:) forControlEvents:UIControlEventTouchUpInside];
+    [button2 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [button2 setFrame:CGRectMake(20, 100, 200, 20)];
+    
+    [self.view addSubview:button];
+    [self.view addSubview:button2];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -44,8 +47,18 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (UIStatusBarStyle)preferredStatusBarStyle {
-    return UIStatusBarStyleLightContent;
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+    return YES;
+}
+
+- (void)login:(UIButton *)target {
+    LoginViewController *loginVC = [[LoginViewController alloc] init];
+    [self.navigationController pushViewController:loginVC animated:YES];
+}
+
+- (void)openPage:(id)sender {
+    WebViewController *webviewVC = [[WebViewController alloc] init];
+    [self.navigationController pushViewController:webviewVC animated:YES];
 }
 
 @end

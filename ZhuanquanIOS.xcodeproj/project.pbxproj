@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		030DC499C3F2743EE3104A65 /* libPods-ZhuanquanIOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F1A90543DC6F665AB74EE3C /* libPods-ZhuanquanIOS.a */; };
+		263080541EBE1D290069F205 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 263080531EBE1D290069F205 /* WebViewController.m */; };
 		269A1B271EB0EE84005186ED /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 269A1B261EB0EE84005186ED /* UIColor+Hex.m */; };
 		269A1B2D1EB22FF0005186ED /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 269A1B2C1EB22FF0005186ED /* LoginViewController.m */; };
 		269A1B301EB46629005186ED /* LoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = 269A1B2F1EB46629005186ED /* LoginView.m */; };
@@ -39,6 +40,8 @@
 
 /* Begin PBXFileReference section */
 		2025B4533D66B9ADC148FC50 /* Pods-ZhuanquanIOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZhuanquanIOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZhuanquanIOS/Pods-ZhuanquanIOS.debug.xcconfig"; sourceTree = "<group>"; };
+		263080521EBE1D290069F205 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
+		263080531EBE1D290069F205 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 		269A1B251EB0EE84005186ED /* UIColor+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Hex.h"; sourceTree = "<group>"; };
 		269A1B261EB0EE84005186ED /* UIColor+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Hex.m"; sourceTree = "<group>"; };
 		269A1B2B1EB22FF0005186ED /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
@@ -115,10 +118,10 @@
 		26E66D4E1EAF93A4007FDDA1 /* ZhuanquanIOS */ = {
 			isa = PBXGroup;
 			children = (
-				26E66D521EAF93A4007FDDA1 /* AppDelegate.h */,
-				26E66D531EAF93A4007FDDA1 /* AppDelegate.m */,
 				26E66D551EAF93A4007FDDA1 /* ViewController.h */,
 				26E66D561EAF93A4007FDDA1 /* ViewController.m */,
+				263080521EBE1D290069F205 /* WebViewController.h */,
+				263080531EBE1D290069F205 /* WebViewController.m */,
 				269A1B2B1EB22FF0005186ED /* LoginViewController.h */,
 				269A1B2C1EB22FF0005186ED /* LoginViewController.m */,
 				269A1B2E1EB46629005186ED /* LoginView.h */,
@@ -131,6 +134,8 @@
 		26E66D4F1EAF93A4007FDDA1 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				26E66D521EAF93A4007FDDA1 /* AppDelegate.h */,
+				26E66D531EAF93A4007FDDA1 /* AppDelegate.m */,
 				26E66D601EAF93A4007FDDA1 /* Info.plist */,
 				26E66D5B1EAF93A4007FDDA1 /* Assets.xcassets */,
 				26E66D5D1EAF93A4007FDDA1 /* LaunchScreen.storyboard */,
@@ -363,6 +368,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				269A1B301EB46629005186ED /* LoginView.m in Sources */,
+				263080541EBE1D290069F205 /* WebViewController.m in Sources */,
 				26E66D571EAF93A4007FDDA1 /* ViewController.m in Sources */,
 				269A1B271EB0EE84005186ED /* UIColor+Hex.m in Sources */,
 				26E66D541EAF93A4007FDDA1 /* AppDelegate.m in Sources */,

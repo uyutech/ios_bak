@@ -18,6 +18,7 @@
 @property (nonatomic, weak) UIButton *loginTabButton;
 @property (nonatomic, weak) UIButton *regTabButton;
 @property (nonatomic, weak) UIButton *forgetButton;
+@property (nonatomic, weak) UIButton *closeButton;
 
 @property (nonatomic, weak) UIButton *loginSubmitButton;
 @property (nonatomic, weak) UIButton *regSubmitButton;
