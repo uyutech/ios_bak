@@ -24,6 +24,7 @@ PODS:
   - SDWebImage (3.7.6):
     - SDWebImage/Core (= 3.7.6)
   - SDWebImage/Core (3.7.6)
+  - SSZipArchive (1.8.1)
   - WebViewJavascriptBridge (5.2.0)
   - WeiboSDK (3.2.0)
 
@@ -31,6 +32,7 @@ DEPENDENCIES:
   - AFNetworking (~> 2.5.3)
   - Masonry
   - SDWebImage (~> 3.7.2)
+  - SSZipArchive
   - WebViewJavascriptBridge (~> 5.0)
   - WeiboSDK (from `https://github.com/sinaweibosdk/weibo_ios_sdk.git`)
 
@@ -47,9 +49,10 @@ SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
   SDWebImage: c325cf02c30337336b95beff20a13df489ec0ec9
+  SSZipArchive: 04547dfa448be5ed7ecbaf7eaf8a6e9eb9b42997
   WebViewJavascriptBridge: a00b2d61252aec5207e3263d46fd0fd3cfaf7895
   WeiboSDK: a678016504873d4c12c35d156eabd232d19b3d3f
 
-PODFILE CHECKSUM: 3576c51023d5493e238df088c14c4ae03bdffb9e
+PODFILE CHECKSUM: 2b3e47b03684580cc13868cc7fce0c9637bde2fa
 
 COCOAPODS: 1.2.1
