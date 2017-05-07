@@ -9,12 +9,12 @@
 #import "ViewController.h"
 #import "LoginViewController.h"
 #import "WebViewController.h"
+#import "WeiboSDK.h"
 
 @interface ViewController ()
 
 @end
 
-@class AppDelegate;
 
 @implementation ViewController
 
@@ -38,8 +38,15 @@
     [button2 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [button2 setFrame:CGRectMake(20, 100, 200, 20)];
     
+    UIButton *button3 = [[UIButton alloc] init];
+    [button3 setTitle:@"新浪SDK接入" forState:UIControlStateNormal];
+    [button3 addTarget:self action:@selector(callWeiboSDK:) forControlEvents:UIControlEventTouchUpInside];
+    [button3 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [button3 setFrame:CGRectMake(20, 140, 200, 20)];
+    
     [self.view addSubview:button];
     [self.view addSubview:button2];
+    [self.view addSubview:button3];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -59,6 +66,14 @@
 - (void)openPage:(id)sender {
     WebViewController *webviewVC = [[WebViewController alloc] init];
     [self.navigationController pushViewController:webviewVC animated:YES];
+}
+
+- (void)callWeiboSDK:(id)sender {
+    WBAuthorizeRequest *request = [WBAuthorizeRequest request];
+    request.redirectURI = @"https://api.weibo.com/oauth2/default.html";
+    request.scope = @"all";
+    request.userInfo = nil;
+    [WeiboSDK sendRequest:request];
 }
 
 @end

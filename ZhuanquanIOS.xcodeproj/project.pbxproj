@@ -518,7 +518,7 @@
 				DEVELOPMENT_TEAM = G78K8E69H7;
 				INFOPLIST_FILE = ZhuanquanIOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = cn.ydream.ZhuanquanIOS;
+				PRODUCT_BUNDLE_IDENTIFIER = net.xiguo.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -531,7 +531,7 @@
 				DEVELOPMENT_TEAM = G78K8E69H7;
 				INFOPLIST_FILE = ZhuanquanIOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = cn.ydream.ZhuanquanIOS;
+				PRODUCT_BUNDLE_IDENTIFIER = net.xiguo.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
