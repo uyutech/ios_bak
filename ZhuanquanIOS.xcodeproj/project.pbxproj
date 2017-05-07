@@ -12,6 +12,7 @@
 		269A1B271EB0EE84005186ED /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 269A1B261EB0EE84005186ED /* UIColor+Hex.m */; };
 		269A1B2D1EB22FF0005186ED /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 269A1B2C1EB22FF0005186ED /* LoginViewController.m */; };
 		269A1B301EB46629005186ED /* LoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = 269A1B2F1EB46629005186ED /* LoginView.m */; };
+		26D478131EBF38580095167E /* h5.zip in Resources */ = {isa = PBXBuildFile; fileRef = 26D478121EBF38580095167E /* h5.zip */; };
 		26E66D511EAF93A4007FDDA1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 26E66D501EAF93A4007FDDA1 /* main.m */; };
 		26E66D541EAF93A4007FDDA1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 26E66D531EAF93A4007FDDA1 /* AppDelegate.m */; };
 		26E66D571EAF93A4007FDDA1 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26E66D561EAF93A4007FDDA1 /* ViewController.m */; };
@@ -48,6 +49,7 @@
 		269A1B2C1EB22FF0005186ED /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		269A1B2E1EB46629005186ED /* LoginView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginView.h; sourceTree = "<group>"; };
 		269A1B2F1EB46629005186ED /* LoginView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginView.m; sourceTree = "<group>"; };
+		26D478121EBF38580095167E /* h5.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = h5.zip; sourceTree = "<group>"; };
 		26E66D4C1EAF93A4007FDDA1 /* ZhuanquanIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZhuanquanIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		26E66D501EAF93A4007FDDA1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		26E66D521EAF93A4007FDDA1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -96,6 +98,7 @@
 		26E66D431EAF93A4007FDDA1 = {
 			isa = PBXGroup;
 			children = (
+				26D478121EBF38580095167E /* h5.zip */,
 				26E66D4E1EAF93A4007FDDA1 /* ZhuanquanIOS */,
 				26E66D681EAF93A4007FDDA1 /* ZhuanquanIOSTests */,
 				26E66D731EAF93A4007FDDA1 /* ZhuanquanIOSUITests */,
@@ -294,6 +297,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				26E66D5F1EAF93A4007FDDA1 /* LaunchScreen.storyboard in Resources */,
+				26D478131EBF38580095167E /* h5.zip in Resources */,
 				26E66D5C1EAF93A4007FDDA1 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -30,7 +30,29 @@
     
     [WeiboSDK registerApp:@"890459019"];
     
+    [self copyFiles];
+    
     return YES;
+}
+
+- (void)copyFiles {
+    NSString *homeDirectory = NSHomeDirectory();
+    NSString *h5Bundle = [[NSBundle mainBundle] pathForResource:@"h5" ofType:@"zip"];
+    NSString *h5Directory = [homeDirectory stringByAppendingString: @"/Documents/zhuanquan_h5"];
+    NSString *h5HomeBundle = [h5Directory stringByAppendingPathComponent: @"h5.zip"];
+    
+    NSLog(@"home dir: %@", homeDirectory);
+    NSLog(@"bundle dir: %@", h5Bundle);
+    
+    if ([[NSFileManager defaultManager] fileExistsAtPath:h5Directory] == NO) {
+        NSLog(@"no dir: %@", h5Directory);
+        [[NSFileManager defaultManager] createDirectoryAtPath:h5Directory withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+    
+    NSError *err = nil;
+    if ([[NSFileManager defaultManager] copyItemAtPath:h5Bundle toPath:h5HomeBundle error:&err] == NO) {
+        NSLog(@"copy file failed: %@", [err localizedDescription]);
+    }
 }
 
 // 9.0 后才生效
