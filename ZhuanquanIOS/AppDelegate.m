@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "ViewController.h"
+#import "SSZipArchive.h"
 
 @interface AppDelegate ()
 
@@ -16,6 +17,8 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    [self copyFiles];
     
     self.window = [[UIWindow alloc] initWithFrame: [UIScreen mainScreen].bounds];
     
@@ -29,8 +32,6 @@
     [self.window makeKeyAndVisible];
     
     [WeiboSDK registerApp:@"890459019"];
-    
-    [self copyFiles];
     
     return YES;
 }
@@ -49,9 +50,12 @@
         [[NSFileManager defaultManager] createDirectoryAtPath:h5Directory withIntermediateDirectories:YES attributes:nil error:nil];
     }
     
-    NSError *err = nil;
-    if ([[NSFileManager defaultManager] copyItemAtPath:h5Bundle toPath:h5HomeBundle error:&err] == NO) {
-        NSLog(@"copy file failed: %@", [err localizedDescription]);
+    if ([[NSFileManager defaultManager] fileExistsAtPath:h5HomeBundle] == NO) {
+        NSError *err = nil;
+        if ([[NSFileManager defaultManager] copyItemAtPath:h5Bundle toPath:h5HomeBundle error:&err] == NO) {
+            NSLog(@"copy file failed: %@", [err localizedDescription]);
+        }
+        [SSZipArchive unzipFileAtPath:h5HomeBundle toDestination:h5Directory overwrite:YES password:nil error:nil];
     }
 }
 

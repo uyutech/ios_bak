@@ -23,8 +23,11 @@
     UIWebView *webview = [[UIWebView alloc] initWithFrame:CGRectMake(0, 20, self.view.frame.size.width, self.view.frame.size.height - 20)];
     webview.scrollView.bounces = NO;
     self.automaticallyAdjustsScrollViewInsets = NO;
+
+    NSString *h5Directory = [NSHomeDirectory() stringByAppendingString: @"/Documents/zhuanquan_h5"];
+    NSString *entryFile = [h5Directory stringByAppendingPathComponent: @"index.html"];
     
-    [webview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://new.tudou.com"]]];
+    [webview loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:entryFile]]];
     
     [self.view addSubview:webview];
     
