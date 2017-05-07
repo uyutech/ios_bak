@@ -25,19 +25,31 @@ PODS:
     - SDWebImage/Core (= 3.7.6)
   - SDWebImage/Core (3.7.6)
   - WebViewJavascriptBridge (5.2.0)
+  - WeiboSDK (3.2.0)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.5.3)
   - Masonry
   - SDWebImage (~> 3.7.2)
   - WebViewJavascriptBridge (~> 5.0)
+  - WeiboSDK (from `https://github.com/sinaweibosdk/weibo_ios_sdk.git`)
+
+EXTERNAL SOURCES:
+  WeiboSDK:
+    :git: https://github.com/sinaweibosdk/weibo_ios_sdk.git
+
+CHECKOUT OPTIONS:
+  WeiboSDK:
+    :commit: cc559ec82e8e89f955e7ecbd60a7565f8b992d86
+    :git: https://github.com/sinaweibosdk/weibo_ios_sdk.git
 
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
   SDWebImage: c325cf02c30337336b95beff20a13df489ec0ec9
   WebViewJavascriptBridge: a00b2d61252aec5207e3263d46fd0fd3cfaf7895
+  WeiboSDK: a678016504873d4c12c35d156eabd232d19b3d3f
 
-PODFILE CHECKSUM: 4f602f7135cf870eb1e5cea00d885f772c1e7c8c
+PODFILE CHECKSUM: 3576c51023d5493e238df088c14c4ae03bdffb9e
 
 COCOAPODS: 1.2.1
