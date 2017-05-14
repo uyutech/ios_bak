@@ -20,6 +20,10 @@
 		26E66D5F1EAF93A4007FDDA1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26E66D5D1EAF93A4007FDDA1 /* LaunchScreen.storyboard */; };
 		26E66D6A1EAF93A4007FDDA1 /* ZhuanquanIOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 26E66D691EAF93A4007FDDA1 /* ZhuanquanIOSTests.m */; };
 		26E66D751EAF93A4007FDDA1 /* ZhuanquanIOSUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 26E66D741EAF93A4007FDDA1 /* ZhuanquanIOSUITests.m */; };
+		26EC88C91EC87A6200250E4B /* WebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EC88C21EC87A6200250E4B /* WebViewJavascriptBridge.m */; };
+		26EC88CA1EC87A6200250E4B /* WebViewJavascriptBridge_JS.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EC88C41EC87A6200250E4B /* WebViewJavascriptBridge_JS.m */; };
+		26EC88CB1EC87A6200250E4B /* WebViewJavascriptBridgeBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EC88C61EC87A6200250E4B /* WebViewJavascriptBridgeBase.m */; };
+		26EC88CC1EC87A6200250E4B /* WKWebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EC88C81EC87A6200250E4B /* WKWebViewJavascriptBridge.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +69,14 @@
 		26E66D701EAF93A4007FDDA1 /* ZhuanquanIOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZhuanquanIOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		26E66D741EAF93A4007FDDA1 /* ZhuanquanIOSUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZhuanquanIOSUITests.m; sourceTree = "<group>"; };
 		26E66D761EAF93A4007FDDA1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		26EC88C11EC87A6200250E4B /* WebViewJavascriptBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewJavascriptBridge.h; sourceTree = "<group>"; };
+		26EC88C21EC87A6200250E4B /* WebViewJavascriptBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewJavascriptBridge.m; sourceTree = "<group>"; };
+		26EC88C31EC87A6200250E4B /* WebViewJavascriptBridge_JS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewJavascriptBridge_JS.h; sourceTree = "<group>"; };
+		26EC88C41EC87A6200250E4B /* WebViewJavascriptBridge_JS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewJavascriptBridge_JS.m; sourceTree = "<group>"; };
+		26EC88C51EC87A6200250E4B /* WebViewJavascriptBridgeBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewJavascriptBridgeBase.h; sourceTree = "<group>"; };
+		26EC88C61EC87A6200250E4B /* WebViewJavascriptBridgeBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewJavascriptBridgeBase.m; sourceTree = "<group>"; };
+		26EC88C71EC87A6200250E4B /* WKWebViewJavascriptBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WKWebViewJavascriptBridge.h; sourceTree = "<group>"; };
+		26EC88C81EC87A6200250E4B /* WKWebViewJavascriptBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WKWebViewJavascriptBridge.m; sourceTree = "<group>"; };
 		3F1A90543DC6F665AB74EE3C /* libPods-ZhuanquanIOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ZhuanquanIOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B76CEC85755E6543C1D137A /* Pods-ZhuanquanIOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZhuanquanIOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZhuanquanIOS/Pods-ZhuanquanIOS.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -99,6 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				26D478121EBF38580095167E /* h5.zip */,
+				26EC88C01EC87A6200250E4B /* WebViewJavascriptBridge */,
 				26E66D4E1EAF93A4007FDDA1 /* ZhuanquanIOS */,
 				26E66D681EAF93A4007FDDA1 /* ZhuanquanIOSTests */,
 				26E66D731EAF93A4007FDDA1 /* ZhuanquanIOSUITests */,
@@ -165,6 +178,22 @@
 				26E66D761EAF93A4007FDDA1 /* Info.plist */,
 			);
 			path = ZhuanquanIOSUITests;
+			sourceTree = "<group>";
+		};
+		26EC88C01EC87A6200250E4B /* WebViewJavascriptBridge */ = {
+			isa = PBXGroup;
+			children = (
+				26EC88C11EC87A6200250E4B /* WebViewJavascriptBridge.h */,
+				26EC88C21EC87A6200250E4B /* WebViewJavascriptBridge.m */,
+				26EC88C31EC87A6200250E4B /* WebViewJavascriptBridge_JS.h */,
+				26EC88C41EC87A6200250E4B /* WebViewJavascriptBridge_JS.m */,
+				26EC88C51EC87A6200250E4B /* WebViewJavascriptBridgeBase.h */,
+				26EC88C61EC87A6200250E4B /* WebViewJavascriptBridgeBase.m */,
+				26EC88C71EC87A6200250E4B /* WKWebViewJavascriptBridge.h */,
+				26EC88C81EC87A6200250E4B /* WKWebViewJavascriptBridge.m */,
+			);
+			name = WebViewJavascriptBridge;
+			path = ZhuanquanIOS/WebViewJavascriptBridge;
 			sourceTree = "<group>";
 		};
 		6331FDF67FFCE70F8E5DE98D /* Frameworks */ = {
@@ -372,9 +401,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				269A1B301EB46629005186ED /* LoginView.m in Sources */,
+				26EC88C91EC87A6200250E4B /* WebViewJavascriptBridge.m in Sources */,
 				263080541EBE1D290069F205 /* WebViewController.m in Sources */,
+				26EC88CB1EC87A6200250E4B /* WebViewJavascriptBridgeBase.m in Sources */,
+				26EC88CA1EC87A6200250E4B /* WebViewJavascriptBridge_JS.m in Sources */,
 				26E66D571EAF93A4007FDDA1 /* ViewController.m in Sources */,
 				269A1B271EB0EE84005186ED /* UIColor+Hex.m in Sources */,
+				26EC88CC1EC87A6200250E4B /* WKWebViewJavascriptBridge.m in Sources */,
 				26E66D541EAF93A4007FDDA1 /* AppDelegate.m in Sources */,
 				26E66D511EAF93A4007FDDA1 /* main.m in Sources */,
 				269A1B2D1EB22FF0005186ED /* LoginViewController.m in Sources */,
