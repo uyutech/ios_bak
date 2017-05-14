@@ -39,11 +39,22 @@
     _bridge = [WebViewJavascriptBridge bridgeForWebView:webview];
     [_bridge setWebViewDelegate: self];
     
-    [_bridge registerHandler:@"testObjcCallback" handler:^(id data, WVJBResponseCallback responseCallback) {
-        NSLog(@"testObjcCallback called: %@", data);
-        responseCallback(@"Response from testObjcCallback");
+    __weak __typeof(&*self) weakSelf = self;
+    
+    [_bridge registerHandler:@"alert" handler:^(id data, WVJBResponseCallback responseCallback) {
+        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:[data valueForKey:@"title"]?:@""
+                                                                         message:[data valueForKey:@"message"]?:@""
+                                                                  preferredStyle:UIAlertControllerStyleAlert];
+        [alertVC addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
+        [weakSelf presentViewController:alertVC animated:YES completion:nil];
     }];
     
+    [_bridge registerHandler:@"test" handler:^(id data, WVJBResponseCallback responseCallback) {
+        [_bridge callHandler:@"test" data:data responseCallback:^(id responseData) {
+            NSLog(@"js return value: %@", responseData);
+        }];
+    }];
+
     [webview loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:entryFile]]];
 }
 

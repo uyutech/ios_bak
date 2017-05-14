@@ -16,18 +16,18 @@ NSString * WebViewJavascriptBridge_js() {
 	// BEGIN preprocessorJSCode
 	static NSString * preprocessorJSCode = @__wvjb_js_func__(
 ;(function() {
-	if (window.WebViewJavascriptBridge) {
-		return;
-	}
+        
+    if (window.ZhuanQuanJSBridge) {
+        return;
+    }
 
 	if (!window.onerror) {
 		window.onerror = function(msg, url, line) {
 			console.log("WebViewJavascriptBridge: ERROR:" + msg + "@" + url + ":" + line);
 		}
 	}
+
 	window.WebViewJavascriptBridge = {
-		registerHandler: registerHandler,
-		callHandler: callHandler,
 		disableJavscriptAlertBoxSafetyTimeout: disableJavscriptAlertBoxSafetyTimeout,
 		_fetchQueue: _fetchQueue,
 		_handleMessageFromObjC: _handleMessageFromObjC
@@ -55,6 +55,7 @@ NSString * WebViewJavascriptBridge_js() {
 		}
 		_doSend({ handlerName:handlerName, data:data }, responseCallback);
 	}
+
 	function disableJavscriptAlertBoxSafetyTimeout() {
 		dispatchMessagesWithTimeoutSafety = false;
 	}
@@ -122,50 +123,23 @@ NSString * WebViewJavascriptBridge_js() {
 	document.documentElement.appendChild(messagingIframe);
 
 	registerHandler("_disableJavascriptAlertBoxSafetyTimeout", disableJavscriptAlertBoxSafetyTimeout);
-	
-	setTimeout(_callWVJBCallbacks, 0);
-	function _callWVJBCallbacks() {
-		var callbacks = window.WVJBCallbacks;
-		delete window.WVJBCallbacks;
-		for (var i=0; i<callbacks.length; i++) {
-			callbacks[i](WebViewJavascriptBridge);
-		}
-	}
-        
-    // 转圈JSBridge API ==========================================
 
-    if(window.ZhuanQuanJSBridge) {
-        return;
-    }
-    
-    var console = window.console;
-    var log = console.log;
-    var postMessage = function(msg) {
-        log.call(console, 'h5container.message: ' + msg);
-    };
-    
+        
+    // JSBridge API ==========================================
+
     window.ZhuanQuanJSBridge = {
         call: function(fn, param, cb) {
-            if(typeof fn !== 'string') {
-                return;
-            }
-            if(typeof param === 'function') {
-                cb = param;
-                param = null;
-            }
-            var invokeMsg = JSON.stringify({
-            fn: fn,
-            param: param,
-            cb: cb
-            });
-            postMessage(invokeMsg);
+            callHandler(fn, param, cb);
+        },
+        register: function(fn, cb) {
+            registerHandler(fn, cb);
         },
         trigger: function(name, param) {
-            if(name) {
+            if (name) {
                 var event = document.createEvent('Events');
                 event.initEvent(name, false, true);
                 if (typeof param === 'object') {
-                    for(var k in param) {
+                    for (var k in param) {
                         event[k] = param[k];
                     }
                 }
