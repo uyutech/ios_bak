@@ -9,7 +9,17 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>KVOController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Masonry.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>OHHTTPStubs.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -32,12 +42,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>2681A019A73391CC4BE870384116FB28</key>
+		<key>0A578B91EB23BBD0EB78884A6FCB29D9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>93ECECCE3C72C747CBDFBF52A4B8B3E3</key>
+		<key>70686C58BBC052465C48095D3950DA7C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7B85985C0ABEBDE60A095DD76B1F0563</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9C2D3327264C1DB785EADD89D3242323</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -47,7 +67,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B05FDE07B756B4DACE360E827B1CAA74</key>
+		<key>B85C2BDFB86710CD65205212CA33C970</key>
 		<dict>
 			<key>primary</key>
 			<true/>
