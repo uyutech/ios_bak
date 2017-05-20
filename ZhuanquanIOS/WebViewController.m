@@ -26,8 +26,8 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     NSString *h5Directory = [NSHomeDirectory() stringByAppendingString: @"/Documents/zhuanquan_h5"];
-    //    NSString *entryFile = [h5Directory stringByAppendingPathComponent: @"index.html"];
-    NSString *entryFile = @"/Users/ydream/Desktop/test.html";
+    NSString *entryFile = [h5Directory stringByAppendingPathComponent: @"index.html"];
+    // NSString *entryFile = @"/Users/ydream/Desktop/test.html";
     
     NSLog(@"path: %@", h5Directory);
     

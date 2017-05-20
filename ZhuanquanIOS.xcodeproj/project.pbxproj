@@ -24,6 +24,8 @@
 		26EC88CA1EC87A6200250E4B /* WebViewJavascriptBridge_JS.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EC88C41EC87A6200250E4B /* WebViewJavascriptBridge_JS.m */; };
 		26EC88CB1EC87A6200250E4B /* WebViewJavascriptBridgeBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EC88C61EC87A6200250E4B /* WebViewJavascriptBridgeBase.m */; };
 		26EC88CC1EC87A6200250E4B /* WKWebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EC88C81EC87A6200250E4B /* WKWebViewJavascriptBridge.m */; };
+		26FD5FE91ED0078C00DFAB58 /* LoginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 26FD5FE81ED0078C00DFAB58 /* LoginManager.m */; };
+		26FD5FEB1ED007E900DFAB58 /* libAFNetworking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 26FD5FEA1ED007E900DFAB58 /* libAFNetworking.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +79,10 @@
 		26EC88C61EC87A6200250E4B /* WebViewJavascriptBridgeBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewJavascriptBridgeBase.m; sourceTree = "<group>"; };
 		26EC88C71EC87A6200250E4B /* WKWebViewJavascriptBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WKWebViewJavascriptBridge.h; sourceTree = "<group>"; };
 		26EC88C81EC87A6200250E4B /* WKWebViewJavascriptBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WKWebViewJavascriptBridge.m; sourceTree = "<group>"; };
+		26FD5FE71ED0078C00DFAB58 /* LoginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginManager.h; sourceTree = "<group>"; };
+		26FD5FE81ED0078C00DFAB58 /* LoginManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginManager.m; sourceTree = "<group>"; };
+		26FD5FEA1ED007E900DFAB58 /* libAFNetworking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAFNetworking.a; path = "../../../../Library/Developer/Xcode/DerivedData/ZhuanquanIOS-etcpsslttmgjukczxkuelgkpoqes/Build/Products/Debug-iphonesimulator/AFNetworking/libAFNetworking.a"; sourceTree = "<group>"; };
+		26FD5FEE1ED0406B00DFAB58 /* AppConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppConfig.h; sourceTree = "<group>"; };
 		3F1A90543DC6F665AB74EE3C /* libPods-ZhuanquanIOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ZhuanquanIOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B76CEC85755E6543C1D137A /* Pods-ZhuanquanIOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZhuanquanIOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZhuanquanIOS/Pods-ZhuanquanIOS.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -86,6 +92,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				26FD5FEB1ED007E900DFAB58 /* libAFNetworking.a in Frameworks */,
 				030DC499C3F2743EE3104A65 /* libPods-ZhuanquanIOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -134,14 +141,14 @@
 		26E66D4E1EAF93A4007FDDA1 /* ZhuanquanIOS */ = {
 			isa = PBXGroup;
 			children = (
+				26FD5FED1ED0247400DFAB58 /* API */,
+				26FD5FEC1ED0245D00DFAB58 /* view */,
 				26E66D551EAF93A4007FDDA1 /* ViewController.h */,
 				26E66D561EAF93A4007FDDA1 /* ViewController.m */,
 				263080521EBE1D290069F205 /* WebViewController.h */,
 				263080531EBE1D290069F205 /* WebViewController.m */,
 				269A1B2B1EB22FF0005186ED /* LoginViewController.h */,
 				269A1B2C1EB22FF0005186ED /* LoginViewController.m */,
-				269A1B2E1EB46629005186ED /* LoginView.h */,
-				269A1B2F1EB46629005186ED /* LoginView.m */,
 				26E66D4F1EAF93A4007FDDA1 /* Supporting Files */,
 			);
 			path = ZhuanquanIOS;
@@ -150,6 +157,7 @@
 		26E66D4F1EAF93A4007FDDA1 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				26FD5FEE1ED0406B00DFAB58 /* AppConfig.h */,
 				26E66D521EAF93A4007FDDA1 /* AppDelegate.h */,
 				26E66D531EAF93A4007FDDA1 /* AppDelegate.m */,
 				26E66D601EAF93A4007FDDA1 /* Info.plist */,
@@ -196,9 +204,28 @@
 			path = ZhuanquanIOS/WebViewJavascriptBridge;
 			sourceTree = "<group>";
 		};
+		26FD5FEC1ED0245D00DFAB58 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				269A1B2E1EB46629005186ED /* LoginView.h */,
+				269A1B2F1EB46629005186ED /* LoginView.m */,
+			);
+			name = view;
+			sourceTree = "<group>";
+		};
+		26FD5FED1ED0247400DFAB58 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				26FD5FE71ED0078C00DFAB58 /* LoginManager.h */,
+				26FD5FE81ED0078C00DFAB58 /* LoginManager.m */,
+			);
+			name = API;
+			sourceTree = "<group>";
+		};
 		6331FDF67FFCE70F8E5DE98D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				26FD5FEA1ED007E900DFAB58 /* libAFNetworking.a */,
 				3F1A90543DC6F665AB74EE3C /* libPods-ZhuanquanIOS.a */,
 			);
 			name = Frameworks;
@@ -409,6 +436,7 @@
 				269A1B271EB0EE84005186ED /* UIColor+Hex.m in Sources */,
 				26EC88CC1EC87A6200250E4B /* WKWebViewJavascriptBridge.m in Sources */,
 				26E66D541EAF93A4007FDDA1 /* AppDelegate.m in Sources */,
+				26FD5FE91ED0078C00DFAB58 /* LoginManager.m in Sources */,
 				26E66D511EAF93A4007FDDA1 /* main.m in Sources */,
 				269A1B2D1EB22FF0005186ED /* LoginViewController.m in Sources */,
 			);
