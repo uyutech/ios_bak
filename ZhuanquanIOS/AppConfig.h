@@ -9,7 +9,8 @@
 #ifndef AppConfig_h
 #define AppConfig_h
 
-#define ZQ_DOMAIN(url) [@"http://106.14.223.219:8089" stringByAppendingString:url]
+#define ZQ_MAIN_DOMAIN @"http://106.14.223.219:8089"
+#define ZQ_DOMAIN(url) [ZQ_MAIN_DOMAIN stringByAppendingString:url]
 
 
 #endif /* AppConfig_h */

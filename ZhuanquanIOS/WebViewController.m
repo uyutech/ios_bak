@@ -8,6 +8,7 @@
 
 #import "WebViewController.h"
 #import "WebViewJavascriptBridge.h"
+#import "AppConfig.h"
 
 @interface WebViewController ()
 
@@ -24,13 +25,7 @@
     UIWebView *webview = [[UIWebView alloc] initWithFrame:CGRectMake(0, 20, self.view.frame.size.width, self.view.frame.size.height - 20)];
     webview.scrollView.bounces = NO;
     self.automaticallyAdjustsScrollViewInsets = NO;
-    
-    NSString *h5Directory = [NSHomeDirectory() stringByAppendingString: @"/Documents/zhuanquan_h5"];
-    NSString *entryFile = [h5Directory stringByAppendingPathComponent: @"index.html"];
-    // NSString *entryFile = @"/Users/ydream/Desktop/test.html";
-    
-    NSLog(@"path: %@", h5Directory);
-    
+
     _webview = webview;
     
     [self.view addSubview:webview];
@@ -55,7 +50,7 @@
         }];
     }];
 
-    [webview loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:entryFile]]];
+    [webview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:ZQ_DOMAIN(@"/guide.html?step=1")]]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -64,7 +59,7 @@
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-    [_webview stringByEvaluatingJavaScriptFromString:@"window.test = 'abc';"];
+//    [_webview stringByEvaluatingJavaScriptFromString:@"window.test = 'abc';"];
 }
 
 @end

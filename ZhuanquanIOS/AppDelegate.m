@@ -9,6 +9,8 @@
 #import "AppDelegate.h"
 #import "ViewController.h"
 #import "SSZipArchive.h"
+#import "OHHTTPStubs.h"
+#import "AppConfig.h"
 
 @interface AppDelegate ()
 
@@ -19,6 +21,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     [self copyFiles];
+    
+    [self filterURLRequest];
     
     self.window = [[UIWindow alloc] initWithFrame: [UIScreen mainScreen].bounds];
     
@@ -57,6 +61,40 @@
         }
         [SSZipArchive unzipFileAtPath:h5HomeBundle toDestination:h5Directory overwrite:YES password:nil error:nil];
     }
+}
+
+- (void)filterURLRequest {
+
+    [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+        
+        NSPredicate *matchZQ = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", ZQ_DOMAIN(@".*")];
+        
+        if ([matchZQ evaluateWithObject:request.URL.absoluteString] == YES) {
+            
+            NSPredicate *matchJSON = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", ZQ_DOMAIN(@".+\\.json\\?*.*")];
+            
+            if ([matchJSON evaluateWithObject:request.URL.absoluteString] == YES) {
+                return NO;
+            } else {
+                return YES;
+            }
+        } else {
+            return NO;
+        }
+
+    } withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+        
+//        NSLog(@"req url ==== %@", request.URL.absoluteString);
+
+        NSString *path = [request.URL.absoluteString substringFromIndex:[request.URL.absoluteString rangeOfString:ZQ_MAIN_DOMAIN].length];
+        NSArray *newPath = [path componentsSeparatedByString:@"?"];
+    
+        NSString *h5Directory = [NSHomeDirectory() stringByAppendingString: @"/Documents/zhuanquan_h5"];
+        NSString *entryFile = [h5Directory stringByAppendingPathComponent: newPath[0]];
+    
+//        NSString *entryFile = @"/Users/ydream/Desktop/test.html";
+        return [OHHTTPStubsResponse responseWithFileAtPath:entryFile statusCode:200 headers:nil];
+    }];
 }
 
 // 9.0 后才生效
