@@ -25,8 +25,6 @@
 
 @end
 
-@class AppDelegate;
-@class UIApplication;
 
 @implementation LoginView
 
@@ -62,16 +60,34 @@
     
     ErrorTipsView *errorTips = [[ErrorTipsView alloc] init];
     
+    UIView *decoLine = [[UIView alloc] init];
+    decoLine.backgroundColor = [UIColor whiteColor];
+    [decoLine setAlpha:0.3f];
+    
+    UILabel *tlsiteLabel = [[UILabel alloc] init];
+    [tlsiteLabel setText:@"其他账号登录"];
+    [tlsiteLabel setFont:[UIFont systemFontOfSize:12]];
+    [tlsiteLabel setTextAlignment:NSTextAlignmentCenter];
+    [tlsiteLabel setTextColor:[UIColor whiteColor]];
+    [tlsiteLabel setBackgroundColor:COLOR_DARK_BLUE];
+    
+    UIButton *tlsiteWeibo = [[UIButton alloc] init];
+    [tlsiteWeibo setImage:[UIImage imageNamed:@"tlsiteWeibo"] forState:UIControlStateNormal];
+    
     _mainBg = mainBg;
     _mainFrame = mainFrame;
     _loginFrame = loginFrame;
     _errorTips = errorTips;
     _closeButton = closeButton;
+    _tlsiteWeibo = tlsiteWeibo;
     
     [self addSubview:mainBg];
     [self addSubview:mainFrame];
     [self addSubview:closeButton];
     [self addSubview:errorTips];
+    [self addSubview:decoLine];
+    [self addSubview:tlsiteLabel];
+    [self addSubview:tlsiteWeibo];
     [mainFrame addSubview:loginFrame];
     
     __weak __typeof(&*self) weakSelf = self;
@@ -97,6 +113,27 @@
         make.top.equalTo(weakSelf).with.offset(10);
         make.left.equalTo(weakSelf).with.offset(10);
         make.size.mas_equalTo(CGSizeMake(40, 20));
+    }];
+    
+    [decoLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(weakSelf).with.offset(-95);
+        make.centerX.equalTo(weakSelf);
+        make.width.mas_equalTo(300);
+        make.height.mas_equalTo(1);
+    }];
+    
+    [tlsiteLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(weakSelf).with.offset(-88);
+        make.centerX.equalTo(weakSelf);
+        make.width.mas_equalTo(85);
+        make.height.mas_equalTo(15);
+    }];
+    
+    [tlsiteWeibo mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(weakSelf).with.offset(-18);
+        make.centerX.equalTo(weakSelf);
+        make.width.mas_equalTo(56);
+        make.height.mas_equalTo(56);
     }];
 }
 
@@ -487,7 +524,7 @@
     return button;
 }
 
-#pragma User Actions
+#pragma - User Actions
 
 - (void)setSelected:(UIButton *)target {
     

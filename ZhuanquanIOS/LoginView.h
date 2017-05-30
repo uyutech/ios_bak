@@ -28,6 +28,8 @@
 @property (nonatomic, weak) UIButton *resetSubmitButton;
 @property (nonatomic, weak) UIButton *resetGetCodeButton;
 
+@property (nonatomic, weak) UIButton *tlsiteWeibo;
+
 @property (nonatomic, weak) UITextField *passport;
 @property (nonatomic, weak) UITextField *password;
 @property (nonatomic, weak) UITextField *regPassport;

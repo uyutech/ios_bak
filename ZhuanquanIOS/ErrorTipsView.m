@@ -28,7 +28,7 @@
         [self addSubview:background];
         
         UILabel *message = [[UILabel alloc] init];
-        message.font = [UIFont systemFontOfSize:13];
+        message.font = [UIFont systemFontOfSize:12];
         message.textColor = [UIColor darkGrayColor];
         [self addSubview:message];
         
@@ -38,7 +38,7 @@
             make.center.equalTo(weakSelf);
         }];
         
-        CGAffineTransform rotate = CGAffineTransformRotate(self.transform, M_PI / 17);
+        CGAffineTransform rotate = CGAffineTransformRotate(self.transform, M_PI / 18);
         [self setTransform:rotate];
         
         self.hidden = YES;

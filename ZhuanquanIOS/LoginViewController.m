@@ -9,6 +9,7 @@
 #import "UIColor+Hex.h"
 #import "LoginViewController.h"
 #import "LoginView.h"
+#import "WeiboSDK.h"
 
 @interface LoginViewController ()
 
@@ -30,6 +31,8 @@
     [loginView.closeButton addTarget:self action:@selector(close:) forControlEvents:UIControlEventTouchUpInside];
     
     [loginView.loginSubmitButton addTarget:self action:@selector(loginSubmit:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [loginView.tlsiteWeibo addTarget:self action:@selector(callWeiboSDK:) forControlEvents:UIControlEventTouchUpInside];
 
     _loginView = loginView;
 }
@@ -51,6 +54,14 @@
 
 - (void)loginSubmit:(id)sender {
     [_loginView.errorTips setMessage:@"用户名与密码不匹配哟" highlightWithString:@[@"用户名",@"密码"]];
+}
+
+- (void)callWeiboSDK:(id)sender {
+    WBAuthorizeRequest *request = [WBAuthorizeRequest request];
+    request.redirectURI = @"https://api.weibo.com/oauth2/default.html";
+    request.scope = @"all";
+    request.userInfo = nil;
+    [WeiboSDK sendRequest:request];
 }
 
 @end
