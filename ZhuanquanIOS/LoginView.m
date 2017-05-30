@@ -60,14 +60,18 @@
     UIButton *backButton = [[UIButton alloc] init];
     [backButton setImage:[UIImage imageNamed:@"backIcon"] forState:UIControlStateNormal];
     
+    ErrorTipsView *errorTips = [[ErrorTipsView alloc] init];
+    
     _mainBg = mainBg;
     _mainFrame = mainFrame;
     _loginFrame = loginFrame;
+    _errorTips = errorTips;
     _closeButton = closeButton;
     
     [self addSubview:mainBg];
     [self addSubview:mainFrame];
     [self addSubview:closeButton];
+    [self addSubview:errorTips];
     [mainFrame addSubview:loginFrame];
     
     __weak __typeof(&*self) weakSelf = self;
@@ -80,6 +84,13 @@
     
     [mainFrame mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(loginFrame).with.offset(0);
+    }];
+    
+    [errorTips mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(mainBg.mas_right).with.offset(90);
+        make.top.equalTo(mainBg.mas_top).with.offset(20);
+        make.width.mas_equalTo(150);
+        make.height.mas_equalTo(43);
     }];
     
     [closeButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -476,7 +487,7 @@
     return button;
 }
 
-/// User Actions
+#pragma User Actions
 
 - (void)setSelected:(UIButton *)target {
     
@@ -540,6 +551,8 @@
         }];
     }
 
+    [_errorTips hideMessage];
+    
     [target setSelected:YES];
     _selectedButton = target;
 }

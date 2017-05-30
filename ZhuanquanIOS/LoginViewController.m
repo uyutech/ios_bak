@@ -12,6 +12,8 @@
 
 @interface LoginViewController ()
 
+@property (nonatomic, weak) LoginView *loginView;
+
 @end
 
 
@@ -26,6 +28,10 @@
     [self.view addSubview:loginView];
     
     [loginView.closeButton addTarget:self action:@selector(close:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [loginView.loginSubmitButton addTarget:self action:@selector(loginSubmit:) forControlEvents:UIControlEventTouchUpInside];
+
+    _loginView = loginView;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -37,8 +43,14 @@
     return UIStatusBarStyleLightContent;
 }
 
+#pragma User Actions
+
 - (void)close:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)loginSubmit:(id)sender {
+    [_loginView.errorTips setMessage:@"用户名与密码不匹配哟" highlightWithString:@[@"用户名",@"密码"]];
 }
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ErrorTipsView.h"
 
 #define COLOR_DARK_BLUE [UIColor colorWithHexString:@"#4c8daf"]
 #define COLOR_LIGHT_BLUE [UIColor colorWithHexString:@"#b4cfdd"]
@@ -35,5 +36,7 @@
 @property (nonatomic, weak) UITextField *resetPassport;
 @property (nonatomic, weak) UITextField *resetPassword;
 @property (nonatomic, weak) UITextField *resetPasscode;
+
+@property (nonatomic, weak) ErrorTipsView *errorTips;
 
 @end
