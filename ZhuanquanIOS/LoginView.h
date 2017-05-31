@@ -14,7 +14,19 @@
 #define COLOR_INPUT_BG [UIColor colorWithHexString:@"#edf3f7"]
 
 
+@protocol LoginViewDelegate <NSObject>
+
+@optional
+- (void)loginWithWeiboSDK:(id)sender;
+- (void)loginSubmit:(id)sender;
+- (void)regSubmit:(id)sender;
+
+@end
+
+
 @interface LoginView : UIView
+
+@property (nonatomic, assign) id<LoginViewDelegate> delegate;
 
 @property (nonatomic, weak) UIButton *loginTabButton;
 @property (nonatomic, weak) UIButton *regTabButton;

@@ -57,6 +57,8 @@
     }
     _message.attributedText = tempMsg;
     self.hidden = NO;
+    
+    [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(hideMessage) userInfo:nil repeats:NO];
 }
 
 - (void)hideMessage {

@@ -73,6 +73,7 @@
     
     UIButton *tlsiteWeibo = [[UIButton alloc] init];
     [tlsiteWeibo setImage:[UIImage imageNamed:@"tlsiteWeibo"] forState:UIControlStateNormal];
+    [tlsiteWeibo addTarget:self action:@selector(loginWithWeiboSDK:) forControlEvents:UIControlEventTouchUpInside];
     
     _mainBg = mainBg;
     _mainFrame = mainFrame;
@@ -199,6 +200,7 @@
     forgetButton.titleLabel.textAlignment = NSTextAlignmentRight;
     
     UIButton *loginSubmitButton = [self createButton:@"登 录"];
+    [loginSubmitButton addTarget:self action:@selector(loginSubmit:) forControlEvents:UIControlEventTouchUpInside];
     
     _passport = passport;
     _password = password;
@@ -258,6 +260,7 @@
     UITextField *passcode = [self createTextField:@"请输入验证码" imageNamed:@"mobileIcon"];
     UIButton *regGetCodeButton = [self createButton:@"发送验证码" fontOfSize:13 borderRadius:4.0f];
     UIButton *regSubmitButton = [self createButton:@"注 册"];
+    [regSubmitButton addTarget:self action:@selector(regSubmit:) forControlEvents:UIControlEventTouchUpInside];
     
     UILabel *regAgreementLabel = [[UILabel alloc] init];
     UIButton *regAgreementButton = [[UIButton alloc] init];
@@ -283,7 +286,7 @@
     
     _regPassport = passport;
     _regPassword = password;
-    _regPasscode = password;
+    _regPasscode = passcode;
     _regGetCodeButton = regGetCodeButton;
     _regSubmitButton = regSubmitButton;
     _regAgreementButton = regAgreementButton;
@@ -524,7 +527,7 @@
     return button;
 }
 
-#pragma - User Actions
+#pragma mark User Actions
 
 - (void)setSelected:(UIButton *)target {
     
@@ -625,6 +628,30 @@
 - (void)hideResetPanel:(UIButton *)target {
     if (_resetPanel != nil) {
         _resetPanel.hidden = YES;
+    }
+}
+
+- (void)loginWithWeiboSDK:(id)sender {
+    if (self.delegate != nil) {
+        if ([self.delegate respondsToSelector:@selector(loginWithWeiboSDK:)]) {
+            [self.delegate loginWithWeiboSDK:sender];
+        }
+    }
+}
+
+- (void)loginSubmit:(id)sender {
+    if (self.delegate != nil) {
+        if ([self.delegate respondsToSelector:@selector(loginSubmit:)]) {
+            [self.delegate loginSubmit:sender];
+        }
+    }
+}
+
+- (void)regSubmit:(id)sender {
+    if (self.delegate != nil) {
+        if ([self.delegate respondsToSelector:@selector(regSubmit:)]) {
+            [self.delegate regSubmit:sender];
+        }
     }
 }
 
