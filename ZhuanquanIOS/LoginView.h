@@ -20,11 +20,12 @@
 - (void)loginWithWeiboSDK:(id)sender;
 - (void)loginSubmit:(id)sender;
 - (void)regSubmit:(id)sender;
+- (void)getMobileCode:(NSString *)mobile typeOfCode:(id)type;
 
 @end
 
 
-@interface LoginView : UIView
+@interface LoginView : UIView<UITextFieldDelegate>
 
 @property (nonatomic, assign) id<LoginViewDelegate> delegate;
 
@@ -52,5 +53,9 @@
 @property (nonatomic, weak) UITextField *resetPasscode;
 
 @property (nonatomic, weak) ErrorTipsView *errorTips;
+
+
+- (BOOL)checkMobile:(NSString *)mobile;
+- (void)getCodeCountDown:(UIButton *)button;
 
 @end

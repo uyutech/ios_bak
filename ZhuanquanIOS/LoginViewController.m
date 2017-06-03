@@ -77,7 +77,7 @@
         return;
     }
     
-    if (![[NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"^1[3,4,5,7,8]\\d{9}$"] evaluateWithObject:_loginView.regPassport.text]) {
+    if ([_loginView checkMobile:_loginView.regPassport.text] == NO) {
         [_loginView.errorTips setMessage:@"手机号码格式有错误" highlightWithString:@[@"手机号码",@"有错误"]];
         return;
     }
@@ -102,6 +102,20 @@
         } else {
             [_loginView.errorTips setMessage:@"出错啦，请再试试哟" highlightWithString:nil];
         }
+    }];
+}
+
+- (void)getMobileCode:(NSString *)mobile typeOfCode:(id)type {
+
+    if ([_loginView checkMobile:mobile] == NO) {
+        [_loginView.errorTips setMessage:@"手机号码格式有错误" highlightWithString:@[@"手机号码",@"有错误"]];
+        return;
+    }
+    
+    [[LoginManager manager] sendRegSms:mobile success:^(id  _Nullable data) {
+        NSLog(@"send mobile: %@ success", mobile);
+    } failure:^(id  _Nullable error) {
+        [_loginView.errorTips setMessage:@"验证码发送失败了" highlightWithString:nil];
     }];
 }
 

@@ -23,6 +23,8 @@
 @property (nonatomic, weak) UIView *resetPanel;
 @property (nonatomic, weak) UIView *regPanel;
 
+@property (nonatomic, weak) NSTimer *countDownTimer;
+
 @end
 
 
@@ -260,8 +262,16 @@
     UITextField *passcode = [self createTextField:@"请输入验证码" imageNamed:@"mobileIcon"];
     UIButton *regGetCodeButton = [self createButton:@"发送验证码" fontOfSize:13 borderRadius:4.0f];
     UIButton *regSubmitButton = [self createButton:@"注 册"];
+    
+    passport.delegate = self;
+    [passport addTarget:self action:@selector(updateGetCodeButton:) forControlEvents:UIControlEventEditingChanged];
+    
     [regSubmitButton addTarget:self action:@selector(regSubmit:) forControlEvents:UIControlEventTouchUpInside];
     
+    [regGetCodeButton addTarget:self action:@selector(getMobileCode:) forControlEvents:UIControlEventTouchUpInside];
+    [regGetCodeButton setEnabled:NO];
+    [regGetCodeButton setAlpha:0.5f];
+
     UILabel *regAgreementLabel = [[UILabel alloc] init];
     UIButton *regAgreementButton = [[UIButton alloc] init];
     
@@ -527,6 +537,14 @@
     return button;
 }
 
+- (BOOL)checkMobile:(NSString *)mobile {
+    if (![[NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"^1[3,4,5,7,8]\\d{9}$"] evaluateWithObject:mobile]) {
+        return NO;
+    }
+    return YES;
+}
+
+
 #pragma mark User Actions
 
 - (void)setSelected:(UIButton *)target {
@@ -631,6 +649,35 @@
     }
 }
 
+- (void)updateGetCodeButton:(UITextField *)target {
+    if ([self checkMobile:_regPassport.text]) {
+        [_regGetCodeButton setEnabled:YES];
+        [_regGetCodeButton setAlpha:1.0f];
+    } else {
+        [_regGetCodeButton setEnabled:NO];
+        [_regGetCodeButton setAlpha:0.5f];
+    }
+}
+
+- (void)getCodeCountDown:(UIButton *)target {
+    __block unsigned int count = 60;
+    [target setTitle:[target titleForState:UIControlStateNormal] forState:UIControlStateReserved];
+    [target setAlpha:0.5f];
+    [target setEnabled:NO];
+    _countDownTimer = [NSTimer scheduledTimerWithTimeInterval:1 repeats:YES block:^(NSTimer * _Nonnull timer) {
+        if (--count == 0) {
+            [_countDownTimer invalidate];
+            _countDownTimer = nil;
+            [target setTitle:[target titleForState:UIControlStateReserved] forState:UIControlStateNormal];
+            [target setAlpha:1.0f];
+            [target setEnabled:YES];
+            return;
+        }
+        NSString *title = [[[NSNumber numberWithInt:count] stringValue] stringByAppendingString:@"秒后重发"];
+        [target setTitle:title forState:UIControlStateNormal];
+    }];
+}
+
 - (void)loginWithWeiboSDK:(id)sender {
     if (self.delegate != nil) {
         if ([self.delegate respondsToSelector:@selector(loginWithWeiboSDK:)]) {
@@ -655,8 +702,28 @@
     }
 }
 
+- (void)getMobileCode:(id)sender {
+    if (self.delegate != nil) {
+        if ([self.delegate respondsToSelector:@selector(getMobileCode:typeOfCode:)]) {
+            [self.delegate getMobileCode:_regPassport.text typeOfCode:nil];
+            [self getCodeCountDown:(UIButton *)sender];
+        }
+    }
+}
+
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [self endEditing:YES];
+}
+
+#pragma mark Delegate
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if ([textField isEqual:_regPassport]) {
+        if (textField.text.length >= 11 && range.length == 0) {
+            return NO;
+        }
+    }
+    return YES;
 }
 
 @end
