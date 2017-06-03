@@ -121,7 +121,8 @@
     [decoLine mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(weakSelf).with.offset(-95);
         make.centerX.equalTo(weakSelf);
-        make.width.mas_equalTo(300);
+        make.left.equalTo(weakSelf).with.offset(40);
+        make.right.equalTo(weakSelf).with.offset(-40);
         make.height.mas_equalTo(1);
     }];
     
@@ -480,7 +481,8 @@
     [resetPanel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf).with.offset(110);
         make.centerX.equalTo(weakSelf);
-        make.width.mas_equalTo(300);
+        make.left.equalTo(weakSelf).with.offset(40);
+        make.right.equalTo(weakSelf).with.offset(-40);
         make.bottom.equalTo(resetSubmitButton.mas_bottom).with.offset(15);
     }];
     
@@ -576,7 +578,8 @@
     [_loginFrame mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf).with.offset(110);
         make.centerX.equalTo(weakSelf);
-        make.width.mas_equalTo(300);
+        make.left.equalTo(weakSelf).with.offset(40);
+        make.right.equalTo(weakSelf).with.offset(-40);
         if (target == _regTabButton) {
             make.bottom.equalTo(_regPanel.mas_bottom).with.offset(0);
         } else {
